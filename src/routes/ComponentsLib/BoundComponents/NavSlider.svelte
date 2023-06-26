@@ -75,7 +75,7 @@
         </div>
 
         <div class="flex justify-center">
-            <p class="text-white font-bold text-3xl p-4">Hello, CAPITAN</p>
+            <p class="text-white font-bold text-3xl p-4">Hello, Administrator</p>
         </div>
 
         <div class="border-2 m-2">

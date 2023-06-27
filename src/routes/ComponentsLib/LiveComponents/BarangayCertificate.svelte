@@ -231,6 +231,10 @@
                     <button class="bg-blue-500 font-bold text-white w-full p-2 hover:bg-blue-600 border-b-2 border-white"
                     on:click={()=>{editValueHandler(i)}}
                     >Edit</button>
+
+                    <button class="bg-blue-500 font-bold text-white w-full p-2 hover:bg-blue-600 border-b-2 border-white"
+                    on:click={()=>{editValueHandler(i)}}
+                    >Print</button>
                     
                 </div>
 

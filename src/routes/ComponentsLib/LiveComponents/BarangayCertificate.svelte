@@ -230,7 +230,7 @@
 
                     <button class="bg-blue-500 font-bold text-white w-full p-2 hover:bg-blue-600 border-b-2 border-white"
                     on:click={()=>{editValueHandler(i)}}
-                    >Edit</button>
+                    >Update</button>
 
                     <button class="bg-red-500 font-bold text-white w-full p-2 hover:bg-red-600 border-b-2 border-white"
                     on:click={() => showPrintModel.set(true)}

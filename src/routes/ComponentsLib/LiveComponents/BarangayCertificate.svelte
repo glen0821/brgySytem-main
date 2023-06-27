@@ -237,7 +237,6 @@
                     >Print</button>
 
                     
-            
                 </div>
 
                 {#if $compareCertValue === i}

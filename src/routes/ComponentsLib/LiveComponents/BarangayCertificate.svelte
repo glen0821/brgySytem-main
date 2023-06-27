@@ -235,7 +235,9 @@
                     <button class="bg-red-500 font-bold text-white w-full p-2 hover:bg-red-600 border-b-2 border-white"
                     on:click={()=>{editValueHandler(i)}}
                     >Print</button>
+
                     
+            
                 </div>
 
                 {#if $compareCertValue === i}

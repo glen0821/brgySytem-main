@@ -43,13 +43,18 @@
     jsPDF: { unit: "in", format: "legal", orientation: "portrait" },
   };
 
-  let pdfElement, pdfElementHidden = true;
+  let pdfElement,
+    pdfElementHidden = true,
+    printData = {};
 
   onMount(() => {
     pdfElement = document.getElementById("pdf-template");
   });
 
-  async function printPdf() {
+  async function printPdf(dataForPrint) {
+    console.log({ dataForPrint });
+    printData.name = dataForPrint.completeName;
+    printData.activity = dataForPrint.purpose;
     pdfElementHidden = false;
     const pdf = await html2pdf().set(opt).from(pdfElement).save();
     pdfElementHidden = true;
@@ -180,7 +185,12 @@
   };
 </script>
 
-<PdfTemplate printFunc={printPdf} isHidden={pdfElementHidden}/>
+<PdfTemplate
+  printFunc={printPdf}
+  isHidden={pdfElementHidden}
+  {...printData}
+  }
+/>
 
 <div class="m-2 mx-auto text-xs">
   <div class="min-h-[50vh] p-10">
@@ -417,8 +427,8 @@
 
                   <button
                     class="bg-red-500 font-bold text-white w-full p-2 hover:bg-red-600 border-b-2 border-white"
-                    on:click={() => showPrintModel.set(true)}>Print</button
-                  > 
+                    on:click={() => printPdf(cert)}>Print</button
+                  >
                 </div>
               </td>
             </tr>

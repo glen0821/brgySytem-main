@@ -30,20 +30,20 @@
 </script>
 
 <div class="">
-    <div class=" bg-guiColor border-b-2 border-b-slate-300 flex gap-2 items-center p-2">
+    <div class="bg-white drop-shadow-lg border-b-slate-300 flex gap-2 items-center p-2">
         <div class="">
-            <div class="max-w-fit p-4 flex flex-col gap-2 rounded-full hover:bg-slate-400 cursor-pointer"
+            <div class="max-w-fit p-4 flex flex-col gap-2 rounded-full cursor-pointer hover:bg-orange-300 duration-700"
             on:keydown={() => {}}
             on:click={showSliderMenu}
             >
-                <div class="w-6 border-b-white border-b-2"></div>
-                <div class="w-6 border-b-white border-b-2"></div>
-                <div class="w-6 border-b-white border-b-2"></div>
+                <div class="w-6 border-b-black border-b-2 "></div>
+                <div class="w-6 border-b-black border-b-2 "></div>
+                <div class="w-6 border-b-black border-b-2 "></div>
             </div>
         </div>
         
         <div class="w-full">
-            <p class="font-bold sm:text-2xl text-white">{$navSelections}</p>
+            <p class="font-bold sm:text-xl text-black">{$navSelections}</p>
         </div>
 
         <div class="w-[100px]">

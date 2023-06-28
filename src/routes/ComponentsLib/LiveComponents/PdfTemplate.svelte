@@ -1,6 +1,7 @@
 <script>
     import BACOOR_LOGO from "$lib/assets/logo.png";
     import SN_LOGO from "$lib/assets/sn3.png";
+    import LOADING_ICON from "$lib/assets/spinning.svg";
     export let name = "JUAN DELA CRUZ";
     export let age = 99;
     export let processedBy = "JUAN DELA CRUZ";
@@ -13,15 +14,17 @@
         year: "2023",
     };
 
-    export let printFunc = function () {
-        console.log("EMPTY FUNCTION FOR PRINT");
-    };
+    // export let printFunc = function () {
+    //     console.log("EMPTY FUNCTION FOR PRINT");
+    // };
 </script>
 
-<button on:click={printFunc} class="">Print</button>
+<!-- <button on:click={printFunc} class="">Print</button> -->
 
 <div class="relative">
-    <div class="w-full h-full absolute inset-0 bg-white"></div>
+    <div class="w-full h-full absolute inset-0 bg-white flex items-center justify-center" class:hidden={isHidden}>
+        <img src={LOADING_ICON} alt="loading please wait" >
+    </div>
     <div
         id="pdf-template"
         class="p-2 mx-auto w-full flex flex-col gap-12"

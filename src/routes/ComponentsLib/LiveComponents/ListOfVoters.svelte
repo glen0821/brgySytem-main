@@ -293,7 +293,6 @@
                         on:click={()=>{showEditModal(i)}}
                         ><i class="ri-edit-box-line text-lg"></i></button>
 
-                        <!-- svelte-ignore missing-declaration -->
                         <button class="hover:bg-red-300 duration-700 px-4 p-2 rounded-full hover:text-black hover:font-bold hover:scale-105"
                         on:click={()=>{removeData(value.id)}}
                         ><i class="ri-delete-bin-line text-lg"></i></button>

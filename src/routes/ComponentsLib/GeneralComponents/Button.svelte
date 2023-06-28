@@ -2,11 +2,11 @@
 <script>
     export let TITLE = "Overide title";
     export let LOADING = false;
-    export let COLOR = "bg-btnColor";
+    export let COLOR = "bg-orange-300";
 </script>
 
 
-<button class="w-full p-2 {COLOR} active:bg-blue-300 transition-all hover:scale-95 active:scale-110 rounded-lg text-white font-bold"
+<button class="w-full p-2 {COLOR} active:bg-orange-300 transition-all hover:scale-105 duration-700 text-black active:scale-110 rounded-lg font-bold"
 on:click
 >
     {#if LOADING}

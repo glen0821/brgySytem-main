@@ -303,41 +303,31 @@
             </tbody>
           </table>
         </div>
-      {/each}
-
-      <!-- {#each $onSnaps as value , i}
-                <div class="" in:fly={{x:400, duration:1000}}>
-                    <div class="flex justify-center items-center ">
-                        
-                       
-                        
-                        <p class="w-[20%] font-bold border-b-2 border-white bg-slate-300 p-2 ">Complete Name</p>
-                        <p class="w-full border-b-2 border-white bg-slate-100 p-2 ">{value.completeName}</p>
-
-                        <p class="w-[20%] font-bold border-b-2 border-white bg-slate-300 p-2 ">Precint #</p>
-                        <p class="w-[20%] border-b-2 border-white bg-slate-100 p-2 ">{value.precintNumber}</p>
-
-                        <p class="w-[20%] font-bold border-b-2 border-white bg-slate-300 p-2 ">Address</p>
-                        <p class="w-full border-b-2 border-white bg-slate-100 p-2 ">{value.completeAddress}</p>
-
-                        
-                        <div class="flex bg-slate-10 w-[30%]">
-                            <button class="bg-red-500 font-bold text-white w-full p-2 hover:bg-red-600 border-b-2 border-white"
-                            on:click={()=>{removeData(value.id)}}
-                            >Delete</button>
-
-                            <button class="bg-blue-500 font-bold text-white w-full p-2 hover:bg-blue-600 border-b-2 border-white"
-                            on:click={()=>{showEditModal(i)}}
-                            >Edit</button>
-                            
-                        </div>
-                        
-                    </div>
-                 
-
+        {#if $compareValue === i}
+        <div class="flex flex-col bg-white gap-2 p-4 max-w-fit mx-auto rounded-lg mt-2 absolute left-0 right-0 border-2 border-slate-200 z-10">
+            <p class="text-xl text-center font-bold p-2 text-black">Modify Values</p>
+            <div class="flex gap-2 justify-center">
+                <div class="">
+                    <Inputs TITLE="Name:" PLACEHOLDER="Complete Name" bind:this={listOfVotersStore.completeName}/>
                 </div>
-            {/each} 
-    </div>-->
+                <div class="">
+                    <Inputs TITLE="Percint #:" PLACEHOLDER="Precint Number" TYPE="number" bind:this={listOfVotersStore.precintNum}/>
+                </div>
+                <div class="">
+                    <Inputs TITLE="Address:" PLACEHOLDER="Complete Address" bind:this={listOfVotersStore.completeAddress}/>
+                </div>
+            </div>
+            
+            <div class="flex gap-2">
+                <button class="w-1/2 bg-orange-300 text-base hover:scale-105 rounded-lg duration-700" on:click={() => {updateData(value.id)}}>Confirm</button>
+                <button class="bg-red-300 text-base hover:scale-105 rounded-lg duration-700 w-1/2"  on:click={showEditModal}>close </button>
+            </div>
+            
+        </div>
+        {/if}
+      {/each}
     </d>
   </div>
+
+  
 </div>

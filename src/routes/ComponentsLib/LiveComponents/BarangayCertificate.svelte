@@ -201,7 +201,7 @@
         </div>
 
         <div class="">
-          <Button TITLE="Generate Barangay Certificate" on:click={printPdf} />
+          <button class="text-xs py-2 px-4 bg-orange-300 rounded-lg hover:bg-orange-400 hover:scale-105 duration-700 font-bold hover:text-white" on:click={printPdf} > Print </button>
         </div>
       </div>
 
@@ -413,21 +413,21 @@
               <td class="px-6 py-4">
                 <div class="flex bg-slate-10 w-[30%] gap-2">
                   <button
-                    class="bg-blue-500 rounded-lg hover:scale-105 duration-700 font-bold text-white w-full p-2 hover:bg-blue-600 border-b-2 border-white"
+                    class=" rounded-lg hover:scale-105 duration-700  text-black w-full p-2 hover:bg-orange-300 border-b-2 border-white"
                     on:click={() => {
                       editValueHandler(cert);
                     }}><i class="ri-edit-2-line" /></button
                   >
 
                   <button
-                    class="bg-red-500 font-bold rounded-lg hover:scale-105 duration-700 text-white w-full p-2 hover:bg-red-600 border-b-2 border-white"
+                    class="font-bold rounded-lg hover:scale-105 duration-700 text-red-800 hover:text-white w-full p-2 hover:bg-red-600 border-b-2 border-white"
                     on:click={removeData(cert.id)}
                     ><i class="ri-delete-bin-line" /></button
                   >
 
                   <button
-                    class="bg-red-500 font-bold text-white w-full p-2 hover:bg-red-600 border-b-2 border-white"
-                    on:click={() => printPdf(cert)}>Print</button
+                    class=" text-blue-800 w-full p-2 hover:bg-blue-600 border-b-2 hover:text-white rounded-lg duration-700"
+                    on:click={() => printPdf(cert)}><i class="ri-printer-line "></i></button
                   >
                 </div>
               </td>

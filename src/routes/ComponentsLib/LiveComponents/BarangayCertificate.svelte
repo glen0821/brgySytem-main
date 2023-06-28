@@ -36,20 +36,24 @@
   // $: console.log(html2pdf);
 
   const opt = {
+    margin: 1,
     filename: "myfile.pdf",
     image: { type: "jpeg", quality: 1.0 },
     html2canvas: { scale: 2 },
-    jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+    jsPDF: { unit: "in", format: "legal", orientation: "portrait" },
   };
 
-  let pdfElement;
+  let pdfElement, pdfElementHidden = true;
 
   onMount(() => {
     pdfElement = document.getElementById("pdf-template");
   });
 
-  function printPdf() {
-    return html2pdf().set(opt).from(pdfElement).save();
+  async function printPdf() {
+    pdfElementHidden = false;
+    const pdf = await html2pdf().set(opt).from(pdfElement).save();
+    pdfElementHidden = true;
+    return pdf;
   }
 
   //handler to show add modal
@@ -176,8 +180,9 @@
   };
 </script>
 
+<PdfTemplate printFunc={printPdf} isHidden={pdfElementHidden}/>
+
 <div class="m-2 mx-auto text-xs">
-  <PdfTemplate name="Test" />
   <div class="min-h-[50vh] p-10">
     <div class=" flex gap-2 items-center mb-2">
       <div class="w-full flex gap-2">
@@ -410,10 +415,10 @@
                     ><i class="ri-delete-bin-line" /></button
                   >
 
-                  <!-- <button
+                  <button
                     class="bg-red-500 font-bold text-white w-full p-2 hover:bg-red-600 border-b-2 border-white"
                     on:click={() => showPrintModel.set(true)}>Print</button
-                  > -->
+                  > 
                 </div>
               </td>
             </tr>

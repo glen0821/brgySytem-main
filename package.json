@@ -10,6 +10,7 @@
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/adapter-static": "^2.0.2",
 		"@sveltejs/kit": "^1.5.0",
 		"autoprefixer": "^10.4.14",
 		"eslint": "^8.28.0",
@@ -21,6 +22,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"firebase": "^9.22.0"
+		"firebase": "^9.22.0",
+		"html2pdf.js": "^0.10.1"
 	}
 }

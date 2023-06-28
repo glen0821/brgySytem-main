@@ -1,8 +1,9 @@
 <script>
   import Button from "../GeneralComponents/Button.svelte";
   import Inputs from "../GeneralComponents/Inputs.svelte";
+  import PdfTemplate from "./PdfTemplate.svelte";
   import { fly } from "svelte/transition";
-
+  import html2pdf from "html2pdf.js";
   import {
     cordionLogic,
     onSnapsBgyCert,
@@ -11,8 +12,6 @@
     compareCertValue,
     showEditModalLogic,
   } from "../BoundComponents/clickOutside";
-
-
 
   import { showPrintModel, formattedDate } from "./stateStore";
   import bgyClearance from "../Images/bgyClearance.jpg";
@@ -32,6 +31,26 @@
     setDoc,
     where,
   } from "firebase/firestore";
+  import { onMount } from "svelte";
+
+  // $: console.log(html2pdf);
+
+  const opt = {
+    filename: "myfile.pdf",
+    image: { type: "jpeg", quality: 1.0 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+  };
+
+  let pdfElement;
+
+  onMount(() => {
+    pdfElement = document.getElementById("pdf-template");
+  });
+
+  function printPdf() {
+    return html2pdf().set(opt).from(pdfElement).save();
+  }
 
   //handler to show add modal
   const toShowAddModal = () => {
@@ -41,7 +60,7 @@
   //handler to show edit modal
   const toShowEditModal = () => {
     showCertEditLogic.set(true);
-  }
+  };
 
   //barangayID varStore
   const bgyVarStore = {
@@ -108,19 +127,16 @@
     );
   };
 
-
-  let editData = {
-   
-  }
+  let editData = {};
 
   //showModalComparison
   const editValueHandler = (data) => {
-    editData = {...data};
+    editData = { ...data };
     // console.log(data);
     toShowEditModal();
     // compareCertValue.set(data);
 
-    console.log(editData)
+    console.log(editData);
   };
 
   const handlerSearch = () => {
@@ -161,6 +177,7 @@
 </script>
 
 <div class="m-2 mx-auto text-xs">
+  <PdfTemplate name="Test" />
   <div class="min-h-[50vh] p-10">
     <div class=" flex gap-2 items-center mb-2">
       <div class="w-full flex gap-2">
@@ -169,10 +186,7 @@
         </div>
 
         <div class="">
-          <Button
-            TITLE="Generate Barangay Certificate"
-            on:click={() => showPrintModel.set(true)}
-          />
+          <Button TITLE="Generate Barangay Certificate" on:click={printPdf} />
         </div>
       </div>
 
@@ -288,12 +302,12 @@
         class="flex flex-col gap-2 bg-white p-4 max-w-fit mx-auto rounded-lg mt-2 absolute left-0 right-0 border-2 border-guiColor z-10"
       >
         <p class="text-xl text-center font-bold p-2 text-slate-500">
-        Update Barangay Certificate
+          Update Barangay Certificate
         </p>
         <div class="">
           <Inputs
             TITLE="Complete Name:"
-            PLACEHOLDER="{editData.completeName}"
+            PLACEHOLDER={editData.completeName}
             bind:this={bgyVarStore.completeName}
           />
         </div>
@@ -302,14 +316,14 @@
           <div class="">
             <Inputs
               TITLE="Length of stay"
-              PLACEHOLDER="{editData.lengthOfStay}"
+              PLACEHOLDER={editData.lengthOfStay}
               bind:this={bgyVarStore.lengthOfStay}
             />
           </div>
           <div class="">
             <Inputs
               TITLE="Purpose"
-              PLACEHOLDER="{editData.purpose}"
+              PLACEHOLDER={editData.purpose}
               bind:this={bgyVarStore.purpose}
             />
           </div>
@@ -328,7 +342,7 @@
         <div class="">
           <Inputs
             TITLE="Complete Address:"
-            PLACEHOLDER="{editData.address}"
+            PLACEHOLDER={editData.address}
             bind:this={bgyVarStore.address}
           />
         </div>

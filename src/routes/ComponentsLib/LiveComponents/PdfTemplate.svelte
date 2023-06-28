@@ -4,8 +4,8 @@
     import LOADING_ICON from "$lib/assets/spinning.svg";
     export let name = "JUAN DELA CRUZ";
     export let age = 99;
-    export let processedBy = "JUAN DELA CRUZ";
-    export let barangayCaptain = "JUAN DELA CRUZ";
+    export let processedBy = "Priscilla C. Orig";
+    export let barangayCaptain = "Hon.George G. Gawaran";
     export let activity = "ACTIVITY";
     export let isHidden = true;
     export let date = {

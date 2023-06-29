@@ -264,19 +264,19 @@
     {/if}
     <!--End of add voters-->
 
-    <d class="" in:fly={{ x: 400, duration: 1000 }}>
-      {#each $onSnaps as voter, i}
-        <div class="relative overflow-x-auto">
-          <table class="w-full text-sm text-left text-gray-500">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-              <tr>
-                <th scope="col" class="px-6 py-3">Complete Name </th>
-                <th scope="col" class="px-6 py-3"> Percint # </th>
-                <th scope="col" class="px-6 py-3"> address </th>
-                <th scope="col" class="px-6 py-3"> action </th>
-              </tr>
-            </thead>
-            <tbody>
+    <div class="" in:fly={{ x: 400, duration: 1000 }}>
+      <div class="relative overflow-x-auto">
+        <table class="w-full text-sm text-left text-gray-500 z-0">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr>
+              <th scope="col" class="px-6 py-3">Complete Name </th>
+              <th scope="col" class="px-6 py-3"> Percint # </th>
+              <th scope="col" class="px-6 py-3"> address </th>
+              <th scope="col" class="px-6 py-3"> action </th>
+            </tr>
+          </thead>
+          <tbody>
+            {#each $onSnaps as voter, i}
               <tr class="bg-white border-b">
                 <th
                   scope="row"
@@ -287,47 +287,76 @@
                 <td class="px-6 py-4">{voter.precintNumber} </td>
                 <td class="px-6 py-4"> {voter.completeAddress} </td>
                 <td>
-                    <div class="flex space-x-5">
+                  <div class="flex space-x-5">
+                    <button
+                      class="hover:bg-orange-300 duration-700 px-4 p-2 rounded-full hover:text-black hover:font-bold hover:scale-105"
+                      on:click={() => {
+                        showEditModal(i);
+                      }}><i class="ri-edit-box-line text-lg" /></button
+                    >
 
-                        <button class="hover:bg-orange-300 duration-700 px-4 p-2 rounded-full hover:text-black hover:font-bold hover:scale-105"
-                        on:click={()=>{showEditModal(i)}}
-                        ><i class="ri-edit-box-line text-lg"></i></button>
-
-                        <button class="hover:bg-red-300 duration-700 px-4 p-2 rounded-full hover:text-black hover:font-bold hover:scale-105"
-                        on:click={()=>{removeData(value.id)}}
-                        ><i class="ri-delete-bin-line text-lg"></i></button>
-
-                    </div>
+                    <button
+                      class="hover:bg-red-300 duration-700 px-4 p-2 rounded-full hover:text-black hover:font-bold hover:scale-105"
+                      on:click={() => {
+                        removeData(voter.id);
+                      }}><i class="ri-delete-bin-line text-lg" /></button
+                    >
+                  </div>
                 </td>
               </tr>
-            </tbody>
-          </table>
-        </div>
-        {#if $compareValue === i}
-        <div class="flex flex-col bg-white gap-2 p-4 max-w-fit mx-auto rounded-lg mt-2 absolute left-0 right-0 border-2 border-slate-200 z-10">
-            <p class="text-xl text-center font-bold p-2 text-black">Modify Values</p>
-            <div class="flex gap-2 justify-center">
-                <div class="">
-                    <Inputs TITLE="Name:" PLACEHOLDER="Complete Name" bind:this={listOfVotersStore.completeName}/>
-                </div>
-                <div class="">
-                    <Inputs TITLE="Percint #:" PLACEHOLDER="Precint Number" TYPE="number" bind:this={listOfVotersStore.precintNum}/>
-                </div>
-                <div class="">
-                    <Inputs TITLE="Address:" PLACEHOLDER="Complete Address" bind:this={listOfVotersStore.completeAddress}/>
-                </div>
-            </div>
-            
-            <div class="flex gap-2">
-                <button class="w-1/2 bg-orange-300 text-base hover:scale-105 rounded-lg duration-700" on:click={() => {updateData(value.id)}}>Confirm</button>
-                <button class="bg-red-300 text-base hover:scale-105 rounded-lg duration-700 w-1/2"  on:click={showEditModal}>close </button>
-            </div>
-            
-        </div>
-        {/if}
-      {/each}
-    </d>
-  </div>
+              {#if $compareValue === i}
+                <tr>
+                  <div
+                    class="flex flex-col bg-white gap-2 p-4 max-w-fit mx-auto rounded-lg mt-2 absolute left-0 right-0 border-2 border-slate-200 z-10"
+                  >
+                    <p class="text-xl text-center font-bold p-2 text-black">
+                      Modify Values
+                    </p>
+                    <div class="flex gap-2 justify-center">
+                      <div class="">
+                        <Inputs
+                          TITLE="Name:"
+                          PLACEHOLDER="Complete Name"
+                          bind:this={listOfVotersStore.completeName}
+                        />
+                      </div>
+                      <div class="">
+                        <Inputs
+                          TITLE="Percint #:"
+                          PLACEHOLDER="Precint Number"
+                          TYPE="number"
+                          bind:this={listOfVotersStore.precintNum}
+                        />
+                      </div>
+                      <div class="">
+                        <Inputs
+                          TITLE="Address:"
+                          PLACEHOLDER="Complete Address"
+                          bind:this={listOfVotersStore.completeAddress}
+                        />
+                      </div>
+                    </div>
 
-  
+                    <div class="flex gap-2">
+                      <button
+                        class="w-1/2 bg-orange-300 text-base hover:scale-105 rounded-lg duration-700"
+                        on:click={() => {
+                          updateData(voter.id);
+                        }}>Confirm</button
+                      >
+                      <button
+                        class="bg-red-300 text-base hover:scale-105 rounded-lg duration-700 w-1/2"
+                        on:click={showEditModal}
+                        >close
+                      </button>
+                    </div>
+                  </div>
+                </tr>
+              {/if}
+            {/each}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

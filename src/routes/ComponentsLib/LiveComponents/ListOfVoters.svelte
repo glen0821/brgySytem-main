@@ -270,7 +270,7 @@
           <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
               <th scope="col" class="px-6 py-3">Complete Name </th>
-              <th scope="col" class="px-6 py-3"> Percint # </th>
+              <th scope="col" class="px-6 py-3"> Precint # </th>
               <th scope="col" class="px-6 py-3"> address </th>
               <th scope="col" class="px-6 py-3"> action </th>
             </tr>

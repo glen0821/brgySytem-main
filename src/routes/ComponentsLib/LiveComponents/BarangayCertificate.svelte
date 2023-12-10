@@ -107,10 +107,13 @@
     let fbData = [];
     snapshots.docs.forEach((doc) => {
       let data = { ...doc.data(), id: doc.id };
+
+      console.log(data);
       fbData = [data, ...fbData];
     });
     onSnapsBgyCert.set(fbData);
   });
+
 
   //removeData from database
   const removeData = async (data) => {

@@ -1,18 +1,32 @@
 <script>
   //database callse and hooks
   import { auth, db } from "../../db/firebase";
-  import { onSnapshot, collection, doc } from "firebase/firestore";
+  import { onSnapshot, collection, doc, getDoc, getDocs, query, orderBy } from "firebase/firestore";
+  import { onMount } from "svelte";
 
   import { fly } from "svelte/transition";
 
   //listofvoters count
   let counter = 0;
   const colRef = collection(db, "votersList");
+
+  
+// $: counterDaTa = getTotalCountDataCollections();
+
+//   const getTotalCountDataCollections = async () => { 
+//     const data =  await getDocs(colRef)
+
+
+
+//     counter = data.docs.length
+    
+
+//   }
   onSnapshot(colRef, (snapshots) => {
-    let counterConvert = 0;
+   let counterConvert = 0;
     snapshots.docs.forEach((doc) => {
-      let fbStoreCount = Number(doc.data().voterCounter);
-      counterConvert += fbStoreCount;
+      // let fbStoreCount = Number(doc.data().voterCounter);
+      counterConvert += 1;
     });
     counter = counterConvert;
   });
@@ -20,11 +34,12 @@
   //barangay requst id count
   let counter2 = 0;
   const colRef2 = collection(db, "barangayID");
-  onSnapshot(colRef2, (snapshots) => {
+  const q2 = query(colRef2, orderBy("createdAt", "desc"));
+  onSnapshot(q2, (snapshots) => {
     let counterConvert = 0;
     snapshots.docs.forEach((doc) => {
-      let fbStoreCount = Number(doc.data().barangayCounter);
-      counterConvert += fbStoreCount;
+      // let fbStoreCount = Number(doc.data().barangayCounter);
+      counterConvert += 1;
     });
     counter2 = counterConvert;
   });
@@ -32,11 +47,15 @@
   //barangay certificate count
   let counter3 = 0;
   const colRef3 = collection(db, "barangayCertificate");
-  onSnapshot(colRef3, (snapshots) => {
+  const q3 = query(colRef3, orderBy("createdAt", "desc"));
+  onSnapshot(q3, (snapshots) => {
     let counterConvert = 0;
     snapshots.docs.forEach((doc) => {
-      let fbStoreCount = Number(doc.data().bgyCertificateCounter);
-      counterConvert += fbStoreCount;
+      // let fbStoreCount = Number(doc.data().bgyCertificateCounter);
+
+      const data = {...doc.data()}
+
+      counterConvert += 1;
     });
     counter3 = counterConvert;
   });
@@ -66,8 +85,8 @@
   });
 </script>
 
-<div class="flex w-full bg-gray-50 min-h-screen">
-  <div class="w-5/6 flex flex-wrap space-x-10  m-10 justify-center">
+<div class="flex w-full bg-gray-100 min-h-screen justify-center">
+  <div class="w-5/6 h-32 grid grid-cols-3 grid-flow-row gap-5 mt-10">
     <!--Regitered voters-->
     <div in:fly={{ y: 300, duration: 1000 }}>
       <div
@@ -76,8 +95,11 @@
         {counter}
       </div>
       <div class="max- bg-white rounded-lg drop-shadow-sm">
-        <p class="text-base font-bold p-14  text-black capitalize hover:underline duration-700">
-          register voters
+        <p class="text-3xl font-bold p-14  text-black capitalize hover:scale-105 duration-700 flex items-center gap-5">
+          <span>
+            <i class="fi fi-rr-vote-yea"></i>
+          </span>
+         <span>register voters</span> 
         </p>
       </div>
     </div>
@@ -91,8 +113,15 @@
           {counter2}
         </div>
         <div class="max- bg-white rounded-lg drop-shadow-sm">
-          <p class="text-base font-bold p-14  text-black capitalize hover:underline duration-700">
-            Total id request
+          <p class="text-3xl font-bold p-14  text-black capitalize hover:scale-105 duration-700">
+
+            <span>
+              <i class="fi fi-rr-id-badge"></i>
+            </span>
+            <span>
+              Total id request
+            </span>
+            
           </p>
         </div>
       </div>
@@ -105,8 +134,11 @@
           {counter3}
         </div>
         <div class="max- bg-white rounded-lg drop-shadow-sm">
-          <p class="text-base font-bold p-14  text-black capitalize hover:underline duration-700">
-           Total certificate
+          <p class="text-3xl font-bold p-14  text-black capitalize hover:scale-105 duration-700">
+            <span><i class="fi fi-rr-diploma"></i></span>
+            <span>
+              Total certificate
+            </span>
           </p>
         </div>
       </div>
@@ -119,8 +151,14 @@
           {counter4}
         </div>
         <div class="max- bg-white rounded-lg drop-shadow-sm">
-          <p class="text-base font-bold p-14  text-black capitalize hover:underline duration-700">
-          total clearance
+          <p class="text-3xl font-bold p-14  text-black capitalize hover:scale-105 duration-700">
+
+            <span>
+              <i class="fi fi-rr-memo"></i>
+            </span>
+            <span>
+              total clearance
+            </span>
           </p>
         </div>
       </div>
@@ -134,8 +172,15 @@
           {counter5}
         </div>
         <div class="max- bg-white rounded-lg drop-shadow-sm">
-          <p class="text-base font-bold p-14  text-black capitalize hover:underline duration-700">
-           total complaint
+          <p class="text-3xl font-bold p-14  text-black capitalize hover:scale-105 duration-700">
+
+            <span>
+              <i class="fi fi-rr-memo-pad"></i>
+            </span>
+            <span>
+              total complaint
+            </span>
+          
           </p>
         </div>
       </div>

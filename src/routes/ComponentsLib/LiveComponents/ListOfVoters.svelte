@@ -83,6 +83,12 @@
     }
   };
 
+  $: editModalId = null;
+
+const openEditModal = (id) => {
+  editModalId = id;
+}
+
   const detectInputs = () => {
     if (listOfVotersStore.kwiri.trim().length < 1) {
       let q = query(colRef, orderBy("createdAt", "desc"));
@@ -146,12 +152,12 @@
   };
 </script>
 
-<div class="m-2 mx-auto text-xs">
-  <div class="min-h-[50vh] p-10">
+<div class="m-2 mx-auto text-xs w-full min-h-screen">
+  <div class="h-full w-full p-10 relative">
     <div class=" flex gap-2 items-center mb-2">
       <div class="w-full flex gap-2">
         <div class="">
-          <Button TITLE="Add Voter" on:click={showAddModal} />
+          <Button TITLE="Add Voter" on:click={() =>showAdd.set(true)} />
         </div>
 
         <div class="">
@@ -264,8 +270,8 @@
     {/if}
     <!--End of add voters-->
 
-    <div class="" in:fly={{ x: 400, duration: 1000 }}>
-      <div class="relative overflow-x-auto">
+    <div class="w-full h-full" in:fly={{ x: 400, duration: 1000 }}>
+      <div class="relative overflow-x-auto h-96 w-full">
         <table class="w-full text-sm text-left text-gray-500 z-0">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
@@ -290,9 +296,7 @@
                   <div class="flex space-x-5">
                     <button
                       class="hover:bg-orange-300 duration-700 px-4 p-2 rounded-full hover:text-black hover:font-bold hover:scale-105"
-                      on:click={() => {
-                        showEditModal(i);
-                      }}><i class="ri-edit-box-line text-lg" /></button
+                      on:click={openEditModal(voter.id)}><i class="ri-edit-box-line text-lg" /></button
                     >
 
                     <button
@@ -304,59 +308,62 @@
                   </div>
                 </td>
               </tr>
-              {#if $compareValue === i}
-                <tr>
-                  <div
-                    class="flex flex-col bg-white gap-2 p-4 max-w-fit mx-auto rounded-lg mt-2 absolute left-0 right-0 border-2 border-slate-200 z-10"
-                  >
-                    <p class="text-xl text-center font-bold p-2 text-black">
-                      Modify Values
-                    </p>
-                    <div class="flex gap-2 justify-center">
-                      <div class="">
-                        <Inputs
-                          TITLE="Name:"
-                          PLACEHOLDER="Complete Name"
-                          bind:this={listOfVotersStore.completeName}
-                        />
-                      </div>
-                      <div class="">
-                        <Inputs
-                          TITLE="Percint #:"
-                          PLACEHOLDER="Precint Number"
-                          TYPE="number"
-                          bind:this={listOfVotersStore.precintNum}
-                        />
-                      </div>
-                      <div class="">
-                        <Inputs
-                          TITLE="Address:"
-                          PLACEHOLDER="Complete Address"
-                          bind:this={listOfVotersStore.completeAddress}
-                        />
-                      </div>
-                    </div>
-
-                    <div class="flex gap-2">
-                      <button
-                        class="w-1/2 bg-orange-300 text-base hover:scale-105 rounded-lg duration-700"
-                        on:click={() => {
-                          updateData(voter.id);
-                        }}>Confirm</button
-                      >
-                      <button
-                        class="bg-red-300 text-base hover:scale-105 rounded-lg duration-700 w-1/2"
-                        on:click={showEditModal}
-                        >close
-                      </button>
-                    </div>
-                  </div>
-                </tr>
-              {/if}
             {/each}
           </tbody>
         </table>
+
+
       </div>
     </div>
+
+    {#if editModalId !== null}
+    <div
+      class="flex flex-col w-96 h-auto bg-white gap-2 p-4  rounded-lg absolute left-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-slate-200 z-10"
+    >
+      <p class="text-xl text-center font-bold p-2 text-black">
+        Modify Values
+      </p>
+      <div class="flex gap-2 justify-center">
+        <div class="">
+          <Inputs
+            TITLE="Name:"
+            PLACEHOLDER="Complete Name"
+            bind:this={listOfVotersStore.completeName}
+          />
+        </div>
+        <div class="">
+          <Inputs
+            TITLE="Percint #:"
+            PLACEHOLDER="Precint Number"
+            TYPE="number"
+            bind:this={listOfVotersStore.precintNum}
+          />
+        </div>
+        <div class="">
+          <Inputs
+            TITLE="Address:"
+            PLACEHOLDER="Complete Address"
+            bind:this={listOfVotersStore.completeAddress}
+          />
+        </div>
+      </div>
+
+      <div class="flex gap-2">
+        <button
+          class="w-1/2 bg-orange-300 text-base hover:scale-105 rounded-lg duration-700"
+          on:click={() => {
+            updateData(editModalId);
+          }}>Confirm</button
+        >
+        <button
+          class="bg-red-300 text-base hover:scale-105 rounded-lg duration-700 w-1/2"
+          on:click={() => {
+            editModalId = null
+          }}
+          >close
+        </button>
+      </div>
+    </div>
+  {/if}
   </div>
 </div>

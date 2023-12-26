@@ -26,25 +26,6 @@
     where,
   } from "firebase/firestore";
 
- // Declare and initialize statuses
-let statuses = new Array($onSnapsBgyID.length).fill('');
-
-
-  function statusClass(status) {
- switch (status) {
-  case 'onProcess':
-    return 'text-red-500';
-  case 'forPickup':
-    return 'text-orange-500';
-  case 'completed':
-    return 'text-green-500';
-  default:
-    return '';
- }
-}
-
-
-
 
   //handler to show add modal
   const toShowAddModal = () => {
@@ -292,6 +273,7 @@ let statuses = new Array($onSnapsBgyID.length).fill('');
         <table class="w-full text-sm text-left text-gray-500">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
+              <th scope="col" class="px-6 py-3"> ID Image </th>
               <th scope="col" class="px-6 py-3"> Firstname </th>
               <th scope="col" class="px-6 py-3"> MI</th>
               <th scope="col" class="px-6 py-3"> Lastname </th>
@@ -308,13 +290,17 @@ let statuses = new Array($onSnapsBgyID.length).fill('');
           </thead>
           <tbody>
             {#each $onSnapsBgyID as barangayId, i}
+           
             <tr class="bg-white border-b">
               <th
                 scope="row"
                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
               >
-                {barangayId.FirstName}
-              </th>
+              <img src={barangayId.IDpictureUrl} alt="ID Picture" class="h-10 w-10 rounded-full">
+              </th> 
+              <td class="px-6 py-4">
+              {barangayId.FirstName}
+            </td>
               <td class="px-6 py-4">
                 {barangayId.MiddleInitial}
               </td>
@@ -343,7 +329,7 @@ let statuses = new Array($onSnapsBgyID.length).fill('');
                   {barangayId.dateOfAppointment}
                 </td>
                 <td class="px-6 py-4">
-                  <select bind:value={statuses[i]} class={`bg-white ${statusClass(statuses[i])}`}>
+                  <select class="bg-white">
                     <option value="">None</option>
                     <option value="onProcess">On Process</option>
                     <option value="forPickup">For Pickup</option>

@@ -33,8 +33,7 @@
   } from "firebase/firestore";
   import { onMount } from "svelte";
 
-  //for status
-
+  
 
   // $: console.log(html2pdf);
 
@@ -428,6 +427,14 @@
               <td class="px-6 py-4"> {cert.lengthOfStay} </td>
               <td class="px-6 py-4"> {cert.purpose} </td>
               <td class="px-6 py-4"> {cert.dateOfAppointment} </td>
+              <td class="px-6 py-4">
+                <select class="bg-white">
+                 <option value="">None</option>
+                  <option value="onProcess">On Process</option>
+                   <option value="forPickup">For Pickup</option>
+                   <option value="completed">Completed</option>
+                  </select>
+               </td>
               <td class="px-6 py-4">
                 <div class="flex bg-slate-10 w-[30%] gap-2">
                   <button

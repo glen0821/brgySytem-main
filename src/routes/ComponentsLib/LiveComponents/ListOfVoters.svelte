@@ -28,6 +28,11 @@
     where,
   } from "firebase/firestore";
 
+
+
+ // Declare and initialize statuses
+
+
   //toggle show modal of add voter
   const showAddModal = () => {
     showAdd.set(true);
@@ -275,9 +280,13 @@ const openEditModal = (id) => {
         <table class="w-full text-sm text-left text-gray-500 z-0">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
-              <th scope="col" class="px-6 py-3">Complete Name </th>
+              <th scope="col" class="px-6 py-3">firstname </th>
+              <th scope="col" class="px-6 py-3">MI </th>
+              <th scope="col" class="px-6 py-3">lastname </th>
+              <th scope="col" class="px-6 py-3">Suffix</th>
               <th scope="col" class="px-6 py-3"> Precint # </th>
               <th scope="col" class="px-6 py-3"> address </th>
+              <th scope="col" class="px-6 py-3"> status </th>
               <th scope="col" class="px-6 py-3"> action </th>
             </tr>
           </thead>
@@ -288,10 +297,20 @@ const openEditModal = (id) => {
                   scope="row"
                   class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                 >
-                  {voter.completeName}
-                </th>
+                {voter.FirstName}
+              </th>
+              <td class="px-6 py-4">
+                {voter.MiddleInitial}
+              </td>
+              <td class="px-6 py-4">
+                {voter.LastName}
+              </td>
+              <td class="px-6 py-4">
+                {voter.Suffix}
+              </td>
                 <td class="px-6 py-4">{voter.precintNumber} </td>
                 <td class="px-6 py-4"> {voter.completeAddress} </td>
+               
                 <td>
                   <div class="flex space-x-5">
                     <button

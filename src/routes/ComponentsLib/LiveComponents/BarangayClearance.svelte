@@ -28,6 +28,10 @@
     where,
   } from "firebase/firestore";
 
+  let statuses = ['', '', ''];
+
+  
+
   //handler to show add modal
   const toShowAddModal = () => {
     showClearanceAddModal.set(true);
@@ -268,12 +272,16 @@
         <table class="w-full text-sm text-left text-gray-500">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
-              <th scope="col" class="px-6 py-3"> complete name </th>
+              <th scope="col" class="px-6 py-3"> firstname </th>
+              <th scope="col" class="px-6 py-3"> MI </th>
+              <th scope="col" class="px-6 py-3"> lastname </th>
+              <th scope="col" class="px-6 py-3"> suffix </th>
               <th scope="col" class="px-6 py-3"> address </th>
               <th scope="col" class="px-6 py-3"> birthdate </th>
               <th scope="col" class="px-6 py-3"> length of stay </th>
               <th scope="col" class="px-6 py-3"> purpose </th>
               <th scope="col" class="px-6 py-3"> date of appointment </th>
+              <th scope="col" class="px-6 py-3"> status </th>
               <th scope="col" class="px-6 py-3"> action </th>
             </tr>
           </thead>
@@ -284,8 +292,17 @@
                   scope="row"
                   class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                 >
-                  {barangayClearance.completeName}
-                </th>
+                {barangayClearance.FirstName}
+              </th>
+              <td class="px-6 py-4">
+                {barangayClearance.MiddleInitial}
+              </td>
+              <td class="px-6 py-4">
+                {barangayClearance.LastName}
+              </td>
+              <td class="px-6 py-4">
+                {barangayClearance.Suffix}
+              </td>
                 <td class="px-6 py-4">
                   {barangayClearance.address}
                 </td>
@@ -300,6 +317,14 @@
                 </td>
                 <td class="px-6 py-4">
                   {barangayClearance.dateOfAppointment}
+                </td>
+                <td class="px-6 py-4">
+                 <select bind:value={statuses[i]}>
+                  <option value="">None</option>
+                   <option value="onProcess">On Process</option>
+                    <option value="forPickup">For Pickup</option>
+                    <option value="completed">Completed</option>
+                   </select>
                 </td>
                 <td >
                     <div class="flex gap-2">

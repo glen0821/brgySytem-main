@@ -26,6 +26,26 @@
     where,
   } from "firebase/firestore";
 
+ // Declare and initialize statuses
+let statuses = new Array($onSnapsBgyID.length).fill('');
+
+
+  function statusClass(status) {
+ switch (status) {
+  case 'onProcess':
+    return 'text-red-500';
+  case 'forPickup':
+    return 'text-orange-500';
+  case 'completed':
+    return 'text-green-500';
+  default:
+    return '';
+ }
+}
+
+
+
+
   //handler to show add modal
   const toShowAddModal = () => {
     showAddModal.set(true);
@@ -272,25 +292,38 @@
         <table class="w-full text-sm text-left text-gray-500">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
-              <th scope="col" class="px-6 py-3"> Complete Name </th>
+              <th scope="col" class="px-6 py-3"> Firstname </th>
+              <th scope="col" class="px-6 py-3"> MI</th>
+              <th scope="col" class="px-6 py-3"> Lastname </th>
+              <th scope="col" class="px-6 py-3"> Suffix </th>
               <th scope="col" class="px-6 py-3"> address </th>
               <th scope="col" class="px-6 py-3"> birthdate </th>
               <th scope="col" class="px-6 py-3"> gender </th>
               <th scope="col" class="px-6 py-3"> height </th>
               <th scope="col" class="px-6 py-3"> weight </th>
               <th scope="col" class="px-6 py-3"> Appointment </th>
+              <th scope="col" class="px-6 py-3"> status </th>
               <th scope="col" class="px-6 py-3"> action </th>
             </tr>
           </thead>
           <tbody>
             {#each $onSnapsBgyID as barangayId, i}
-              <tr class="bg-white border-b">
-                <th
-                  scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                >
-                  {barangayId.completeName}
-                </th>
+            <tr class="bg-white border-b">
+              <th
+                scope="row"
+                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+              >
+                {barangayId.FirstName}
+              </th>
+              <td class="px-6 py-4">
+                {barangayId.MiddleInitial}
+              </td>
+              <td class="px-6 py-4">
+                {barangayId.LastName}
+              </td>
+              <td class="px-6 py-4">
+                {barangayId.Suffix}
+              </td>
                 <td class="px-6 py-4">
                   {barangayId.address}
                 </td>
@@ -308,6 +341,14 @@
                 </td>
                 <td class="px-6 py-4">
                   {barangayId.dateOfAppointment}
+                </td>
+                <td class="px-6 py-4">
+                  <select bind:value={statuses[i]} class={`bg-white ${statusClass(statuses[i])}`}>
+                    <option value="">None</option>
+                    <option value="onProcess">On Process</option>
+                    <option value="forPickup">For Pickup</option>
+                    <option value="completed">Completed</option>
+                   </select>     
                 </td>
                 <td class="px-6 py-4">
                   <div class="flex gap-2">

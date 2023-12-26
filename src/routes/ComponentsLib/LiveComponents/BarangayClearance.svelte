@@ -28,9 +28,6 @@
     where,
   } from "firebase/firestore";
 
-  let statuses = ['', '', ''];
-
-  
 
   //handler to show add modal
   const toShowAddModal = () => {
@@ -319,7 +316,7 @@
                   {barangayClearance.dateOfAppointment}
                 </td>
                 <td class="px-6 py-4">
-                 <select bind:value={statuses[i]}>
+                 <select class="bg-white">
                   <option value="">None</option>
                    <option value="onProcess">On Process</option>
                     <option value="forPickup">For Pickup</option>

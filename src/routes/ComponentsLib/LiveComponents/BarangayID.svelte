@@ -26,25 +26,6 @@
     where,
   } from "firebase/firestore";
 
- // Declare and initialize statuses
-let statuses = new Array($onSnapsBgyID.length).fill('');
-
-
-  function statusClass(status) {
- switch (status) {
-  case 'onProcess':
-    return 'text-red-500';
-  case 'forPickup':
-    return 'text-orange-500';
-  case 'completed':
-    return 'text-green-500';
-  default:
-    return '';
- }
-}
-
-
-
 
   //handler to show add modal
   const toShowAddModal = () => {
@@ -343,7 +324,7 @@ let statuses = new Array($onSnapsBgyID.length).fill('');
                   {barangayId.dateOfAppointment}
                 </td>
                 <td class="px-6 py-4">
-                  <select bind:value={statuses[i]} class={`bg-white ${statusClass(statuses[i])}`}>
+                  <select class="bg-white">
                     <option value="">None</option>
                     <option value="onProcess">On Process</option>
                     <option value="forPickup">For Pickup</option>

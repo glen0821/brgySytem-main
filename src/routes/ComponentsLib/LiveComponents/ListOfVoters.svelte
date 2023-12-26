@@ -32,7 +32,6 @@
 
  // Declare and initialize statuses
 
-
   //toggle show modal of add voter
   const showAddModal = () => {
     showAdd.set(true);
@@ -66,7 +65,6 @@
   //database loop data
   const colRef = collection(db, "votersList");
   let q = query(colRef, orderBy("createdAt", "desc"));
-
   const handleSearch = () => {
     if (listOfVotersStore.trigger) {
       q = query(
@@ -279,6 +277,7 @@ const openEditModal = (id) => {
       <div class="relative overflow-x-auto h-96 w-full">
         <table class="w-full text-sm text-left text-gray-500 z-0">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+
             <tr>
               <th scope="col" class="px-6 py-3">firstname </th>
               <th scope="col" class="px-6 py-3">MI </th>
@@ -290,6 +289,7 @@ const openEditModal = (id) => {
               <th scope="col" class="px-6 py-3"> action </th>
             </tr>
           </thead>
+
           <tbody>
             {#each $onSnaps as voter, i}
               <tr class="bg-white border-b">
@@ -297,10 +297,20 @@ const openEditModal = (id) => {
                   scope="row"
                   class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                 >
-                {voter.FirstName}
+              {#if voter.completeName.includes(' ')}
+                {voter.completeName.split(' ')[0]}
+              {:else}
+                {voter.completeName}
+              {/if}
               </th>
               <td class="px-6 py-4">
-                {voter.MiddleInitial}
+              {#if voter.completeName.includes(' ')}
+                {#each voter.completeName.split(' ') as part, index}
+                  {#if index === 1}{part} {/if}
+                {/each}
+              {:else}
+                {voter.completeName}
+              {/if}
               </td>
               <td class="px-6 py-4">
                 {voter.LastName}
@@ -308,6 +318,7 @@ const openEditModal = (id) => {
               <td class="px-6 py-4">
                 {voter.Suffix}
               </td>
+              
                 <td class="px-6 py-4">{voter.precintNumber} </td>
                 <td class="px-6 py-4"> {voter.completeAddress} </td>
                

@@ -273,6 +273,7 @@
         <table class="w-full text-sm text-left text-gray-500">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
+              <th scope="col" class="px-6 py-3"> ID Image </th>
               <th scope="col" class="px-6 py-3"> Firstname </th>
               <th scope="col" class="px-6 py-3"> MI</th>
               <th scope="col" class="px-6 py-3"> Lastname </th>
@@ -289,13 +290,17 @@
           </thead>
           <tbody>
             {#each $onSnapsBgyID as barangayId, i}
+           
             <tr class="bg-white border-b">
               <th
                 scope="row"
                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
               >
-                {barangayId.FirstName}
-              </th>
+              <img src={barangayId.IDpictureUrl} alt="ID Picture" class="h-10 w-10 rounded-full">
+              </th> 
+              <td class="px-6 py-4">
+              {barangayId.FirstName}
+            </td>
               <td class="px-6 py-4">
                 {barangayId.MiddleInitial}
               </td>

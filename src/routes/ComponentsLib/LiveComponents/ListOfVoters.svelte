@@ -27,9 +27,6 @@
     setDoc,
     where,
   } from "firebase/firestore";
-
-
-
  // Declare and initialize statuses
 
 

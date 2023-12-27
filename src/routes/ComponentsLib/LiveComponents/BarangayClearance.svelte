@@ -289,16 +289,41 @@
                   scope="row"
                   class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                 >
-                {barangayClearance.FirstName}
+                {#if barangayClearance.completeName.includes(' ')}
+                  {barangayClearance.completeName.split(' ')[0]}
+                  {#if barangayClearance.completeName.split(' ')[1].length !== 1 && barangayClearance.completeName.split(' ')[2].length < 3 }
+                    {barangayClearance.completeName.split(' ')[1]}
+                  {/if}
+                {/if}
               </th>
               <td class="px-6 py-4">
-                {barangayClearance.MiddleInitial}
+                {#if barangayClearance.completeName.includes(' ')}
+                  {#if barangayClearance.completeName.split(' ')[2].length <= 2}
+                    {barangayClearance.completeName.split(' ')[2]}
+                  {/if}
+                {/if}
               </td>
               <td class="px-6 py-4">
-                {barangayClearance.LastName}
+                  {#if barangayClearance.completeName.includes(' ')}
+                  {#if barangayClearance.completeName.split(' ')[2].length <= 2 && barangayClearance.completeName.split(' ')[3].length > 3}
+                    {barangayClearance.completeName.split(' ')[3]}
+                  {:else if barangayClearance.completeName.split(' ')[2].length < 4}
+                    {barangayClearance.completeName.split(' ')[1]}
+                  {:else}
+                    {barangayClearance.completeName.split(' ')[2]}
+                  {/if}
+                {/if}
               </td>
               <td class="px-6 py-4">
-                {barangayClearance.Suffix}
+              {#if barangayClearance.completeName.includes(' ')}
+                  {#if barangayClearance.completeName.split(' ')[2].length <= 2 && barangayClearance.completeName.split(' ')[3].length > 3}
+                    {barangayClearance.completeName.split(' ')[4]}
+                  {:else if barangayClearance.completeName.split(' ')[2].length < 4}
+                    {barangayClearance.completeName.split(' ')[2]}
+                  {:else if barangayClearance.completeName.split(' ')[3].length < 4}
+                    {barangayClearance.completeName.split(' ')[3]}
+                  {/if}
+              {/if}
               </td>
                 <td class="px-6 py-4">
                   {barangayClearance.address}

@@ -298,17 +298,42 @@
               >
               <img src={barangayId.IDpictureUrl} alt="ID Picture" class="h-10 w-10 rounded-full">
               </th> 
-              <td class="px-6 py-4">
-              {barangayId.FirstName}
-            </td>
-              <td class="px-6 py-4">
-                {barangayId.MiddleInitial}
+                <td class="px-6 py-4">
+                  {#if barangayId.completeName.includes(' ')}
+                    {barangayId.completeName.split(' ')[0]}
+                    {#if barangayId.completeName.split(' ')[1].length !== 1 && voter.completeName.split(' ')[2].length < 3 }
+                      {barangayId.completeName.split(' ')[1]}
+                    {/if}
+                  {/if}
               </td>
               <td class="px-6 py-4">
-                {barangayId.LastName}
+                {#if barangayId.completeName.includes(' ')}
+                  {#if barangayId.completeName.split(' ')[2].length <= 2}
+                    {barangayId.completeName.split(' ')[2]}
+                  {/if}
+                {/if}
               </td>
               <td class="px-6 py-4">
-                {barangayId.Suffix}
+                  {#if barangayId.completeName.includes(' ')}
+                    {#if barangayId.completeName.split(' ')[2].length <= 2 && voter.completeName.split(' ')[3].length > 3}
+                      {barangayId.completeName.split(' ')[3]}
+                    {:else if barangayId.completeName.split(' ')[2].length < 4}
+                      {barangayId.completeName.split(' ')[1]}
+                    {:else}
+                      {barangayId.completeName.split(' ')[2]}
+                    {/if}
+                  {/if}
+              </td>
+              <td class="px-6 py-4">
+                {#if barangayId.completeName.includes(' ')}
+                    {#if barangayId.completeName.split(' ')[2].length <= 2 && voter.completeName.split(' ')[3].length > 3}
+                      { barangayId.completeName.split(' ')[4]}
+                    {:else if barangayId.completeName.split(' ')[2].length < 4}
+                      { barangayId.completeName.split(' ')[2]}
+                    {:else if barangayId.completeName.split(' ')[3].length < 4}
+                      { barangayId.completeName.split(' ')[3]}
+                    {/if}
+                {/if}
               </td>
                 <td class="px-6 py-4">
                   {barangayId.address}

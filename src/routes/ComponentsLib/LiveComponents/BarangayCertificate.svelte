@@ -411,16 +411,41 @@
                 scope="row"
                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
               >
-              {cert.FirstName}
+              {#if cert.completeName.includes(' ')}
+                  {cert.completeName.split(' ')[0]}
+                  {#if cert.completeName.split(' ')[1].length !== 1 && cert.completeName.split(' ')[2].length < 3 }
+                    {cert.completeName.split(' ')[1]}
+                  {/if}
+              {/if}
             </th>
             <td class="px-6 py-4">
-              {cert.MiddleInitial}
+              {#if cert.completeName.includes(' ')}
+                  {#if cert.completeName.split(' ')[2].length <= 2}
+                    {cert.completeName.split(' ')[2]}
+                  {/if}
+                {/if}
             </td>
             <td class="px-6 py-4">
-              {cert.LastName}
+              {#if cert.completeName.includes(' ')}
+                {#if cert.completeName.split(' ')[2].length <= 2 && cert.completeName.split(' ')[3].length > 3}
+                  {cert.completeName.split(' ')[3]}
+                {:else if cert.completeName.split(' ')[2].length < 4}
+                  {cert.completeName.split(' ')[1]}
+                {:else}
+                  {cert.completeName.split(' ')[2]}
+                {/if}
+              {/if}
             </td>
             <td class="px-6 py-4">
-              {cert.Suffix}
+              {#if cert.completeName.includes(' ')}
+                {#if cert.completeName.split(' ')[2].length <= 2 && cert.completeName.split(' ')[3].length > 3}
+                  {cert.completeName.split(' ')[4]}
+                {:else if cert.completeName.split(' ')[2].length < 4}
+                  {cert.completeName.split(' ')[2]}
+                {:else if cert.completeName.split(' ')[3]}
+                  {cert.completeName.split(' ')[3]}
+                {/if}
+            {/if}
             </td>
               <td class="px-6 py-4"> {cert.address} </td>
               <td class="px-6 py-4">{cert.birthdate} </td>
@@ -429,12 +454,12 @@
               <td class="px-6 py-4"> {cert.dateOfAppointment} </td>
               <td class="px-6 py-4">
                 <select class="bg-white">
-                 <option value="">None</option>
-                  <option value="onProcess">On Process</option>
-                   <option value="forPickup">For Pickup</option>
-                   <option value="completed">Completed</option>
-                  </select>
-               </td>
+                <option value="">None</option>
+                <option value="onProcess">On Process</option>
+                  <option value="forPickup">For Pickup</option>
+                  <option value="completed">Completed</option>
+                </select>
+              </td>
               <td class="px-6 py-4">
                 <div class="flex bg-slate-10 w-[30%] gap-2">
                   <button

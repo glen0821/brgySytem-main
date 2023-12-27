@@ -288,44 +288,58 @@ const openEditModal = (id) => {
           </thead>
 
           <tbody>
-            {#each $onSnaps as voter, i}
-              <tr class="bg-white border-b">
-                <th
-                  scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                >
-              {#if voter.completeName.includes(' ')}
-                {voter.completeName.split(' ')[0]}
-              {:else}
-                {voter.completeName}
-              {/if}
-              </th>
-              <td class="px-6 py-4">
-              {#if voter.completeName.includes(' ')}
-                {#each voter.completeName.split(' ') as part, index}
-                  {#if index === 1}{part} {/if}
-                {/each}
-              {:else}
-                {voter.completeName}
-              {/if}
-              </td>
-              <td class="px-6 py-4">
-                {voter.LastName}
-              </td>
-              <td class="px-6 py-4">
-                {voter.Suffix}
-              </td>
-              
+              {#each $onSnaps as voter, i}
+                <tr class="bg-white border-b">
+                  <th
+                    scope="row"
+                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                  >
+                {#if voter.completeName.includes(' ')}
+                  {voter.completeName.split(' ')[0]}
+                  {#if voter.completeName.split(' ')[1].length !== 1 && voter.completeName.split(' ')[2].length < 3 }
+                    {voter.completeName.split(' ')[1]}
+                  {/if}
+                {/if}
+                </th>
+                <td class="px-6 py-4">
+                {#if voter.completeName.includes(' ')}
+                  {#if voter.completeName.split(' ')[2].length <= 2}
+                    {voter.completeName.split(' ')[2]}
+                  {/if}
+                {/if}
+                </td>
+                <td class="px-6 py-4">
+                  {#if voter.completeName.includes(' ')}
+                    {#if voter.completeName.split(' ')[2].length <= 2 && voter.completeName.split(' ')[3].length > 3}
+                      {voter.completeName.split(' ')[3]}
+                    {:else if voter.completeName.split(' ')[2].length < 4}
+                      {voter.completeName.split(' ')[1]}
+                    {:else}
+                      {voter.completeName.split(' ')[2]}
+                    {/if}
+                  {/if}
+                </td>
+                <td class="px-6 py-4">
+                {#if voter.completeName.includes(' ')}
+                    {#if voter.completeName.split(' ')[2].length <= 2 && voter.completeName.split(' ')[3].length > 3}
+                      {voter.completeName.split(' ')[4]}
+                    {:else if voter.completeName.split(' ')[2].length < 4}
+                      {voter.completeName.split(' ')[2]}
+                    {:else if voter.completeName.split(' ')[3].length < 4}
+                      {voter.completeName.split(' ')[3]}
+                    {/if}
+                {/if}
+                </td>
                 <td class="px-6 py-4">{voter.precintNumber} </td>
                 <td class="px-6 py-4"> {voter.completeAddress} </td>
                 <td class="px-6 py-4">
                   <select class="bg-white">
-                   <option value="">None</option>
-                    <option value="onProcess">On Process</option>
-                     <option value="forPickup">For Pickup</option>
-                     <option value="completed">Completed</option>
-                    </select>
-                 </td>
+                  <option value="">None</option>
+                  <option value="onProcess">On Process</option>
+                    <option value="forPickup">For Pickup</option>
+                    <option value="completed">Completed</option>
+                  </select>
+                </td>
                 <td>
                   <div class="flex space-x-5">
                     <button

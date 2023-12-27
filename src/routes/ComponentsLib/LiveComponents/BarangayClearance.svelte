@@ -81,6 +81,17 @@
     await deleteDoc(docRef);
   };
 
+  const updateStatus = async (userID, selectedStatus) => {
+    const docRef = doc(colRef, userID);
+
+    const updatedData = {
+      status: selectedStatus,
+      lastUpdated: serverTimestamp(),
+    };
+
+    await setDoc(docRef, updatedData, { merge: true });
+  };
+  
   //updateData from database
   const updateData = async (data) => {
     const docRef = doc(colRef, data);
@@ -341,12 +352,11 @@
                   {barangayClearance.dateOfAppointment}
                 </td>
                 <td class="px-6 py-4">
-                 <select class="bg-white">
-                  <option value="">None</option>
-                   <option value="onProcess">On Process</option>
-                    <option value="forPickup">For Pickup</option>
-                    <option value="completed">Completed</option>
-                   </select>
+                  <select class="bg-white" bind:value={barangayClearance.status} on:change={() => updateStatus(barangayClearance.id, barangayClearance.status)}>
+                    <option value="Processing">On Process</option>
+                    <option value="Ready for pickup">For Pickup</option>
+                    <option value="Claimed">Completed</option>
+                  </select>
                 </td>
                 <td >
                     <div class="flex gap-2">

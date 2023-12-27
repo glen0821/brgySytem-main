@@ -34,6 +34,7 @@
 
   //barangayID varStore
   const bgyVarStore = {
+    status: "",
     completeName: "",
     address: "",
     birthdate: "",
@@ -81,6 +82,17 @@
     await deleteDoc(docRef);
   };
 
+  const updateStatus = async (userID, selectedStatus) => {
+    const docRef = doc(colRef, userID);
+
+    const updatedData = {
+      status: selectedStatus,
+      lastUpdated: serverTimestamp(),
+    };
+
+    await setDoc(docRef, updatedData, { merge: true });
+  };
+
   //updateData from database
   const updateData = async (data) => {
     const docRef = doc(colRef, data);
@@ -95,6 +107,7 @@
         height: bgyVarStore.height.BINDTHIS,
         weight: bgyVarStore.weight.BINDTHIS,
         dateOfAppointment: bgyVarStore.dateOfAppointment.BINDTHIS,
+        status: bgyVarStore.status.BINDTHIS,
       },
       { merge: true }
     );
@@ -290,7 +303,6 @@
           </thead>
           <tbody>
             {#each $onSnapsBgyID as barangayId, i}
-           
             <tr class="bg-white border-b">
               <th
                 scope="row"
@@ -301,7 +313,7 @@
                 <td class="px-6 py-4">
                   {#if barangayId.completeName.includes(' ')}
                     {barangayId.completeName.split(' ')[0]}
-                    {#if barangayId.completeName.split(' ')[1].length !== 1 && voter.completeName.split(' ')[2].length < 3 }
+                    {#if barangayId.completeName.split(' ')[1].length !== 1 && barangayId.completeName.split(' ')[2].length < 3 }
                       {barangayId.completeName.split(' ')[1]}
                     {/if}
                   {/if}
@@ -315,7 +327,7 @@
               </td>
               <td class="px-6 py-4">
                   {#if barangayId.completeName.includes(' ')}
-                    {#if barangayId.completeName.split(' ')[2].length <= 2 && voter.completeName.split(' ')[3].length > 3}
+                    {#if barangayId.completeName.split(' ')[2].length <= 2 && barangayId.completeName.split(' ')[3].length > 3}
                       {barangayId.completeName.split(' ')[3]}
                     {:else if barangayId.completeName.split(' ')[2].length < 4}
                       {barangayId.completeName.split(' ')[1]}
@@ -326,7 +338,7 @@
               </td>
               <td class="px-6 py-4">
                 {#if barangayId.completeName.includes(' ')}
-                    {#if barangayId.completeName.split(' ')[2].length <= 2 && voter.completeName.split(' ')[3].length > 3}
+                    {#if barangayId.completeName.split(' ')[2].length <= 2 && barangayId.completeName.split(' ')[3].length > 3}
                       { barangayId.completeName.split(' ')[4]}
                     {:else if barangayId.completeName.split(' ')[2].length < 4}
                       { barangayId.completeName.split(' ')[2]}
@@ -354,12 +366,11 @@
                   {barangayId.dateOfAppointment}
                 </td>
                 <td class="px-6 py-4">
-                  <select class="bg-white">
-                    <option value="">None</option>
-                    <option value="onProcess">On Process</option>
-                    <option value="forPickup">For Pickup</option>
-                    <option value="completed">Completed</option>
-                   </select>     
+                  <select class="bg-white" bind:value={barangayId.status} on:change={() => updateStatus(barangayId.id, barangayId.status)}>
+                    <option value="Processing">On Process</option>
+                    <option value="Ready for pickup">For Pickup</option>
+                    <option value="Claimed">Completed</option>
+                  </select>
                 </td>
                 <td class="px-6 py-4">
                   <div class="flex gap-2">
@@ -369,7 +380,6 @@
                       editValueHandler(i);
                     }}><i class="ri-pencil-line text-base"></i></button
                   >
-
                     <button
                       class="hover:bg-red-300 hover:scale-105 px-4 py-2 rounded-full duration-700 hover:text-white"
                       on:click={removeData(barangayId.id)}><i class="ri-delete-bin-line"></i></button

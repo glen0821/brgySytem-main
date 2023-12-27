@@ -141,6 +141,8 @@ const openEditModal = (id) => {
     });
   };
 
+
+
   //showEditModal
   const showEditModal = (i) => {
     compareValue.set(i);
@@ -282,7 +284,6 @@ const openEditModal = (id) => {
               <th scope="col" class="px-6 py-3">Suffix</th>
               <th scope="col" class="px-6 py-3"> Precint # </th>
               <th scope="col" class="px-6 py-3"> address </th>
-              <th scope="col" class="px-6 py-3"> status </th>
               <th scope="col" class="px-6 py-3"> action </th>
             </tr>
           </thead>
@@ -332,14 +333,6 @@ const openEditModal = (id) => {
                 </td>
                 <td class="px-6 py-4">{voter.precintNumber} </td>
                 <td class="px-6 py-4"> {voter.completeAddress} </td>
-                <td class="px-6 py-4">
-                  <select class="bg-white">
-                  <option value="">None</option>
-                  <option value="onProcess">On Process</option>
-                    <option value="forPickup">For Pickup</option>
-                    <option value="completed">Completed</option>
-                  </select>
-                </td>
                 <td>
                   <div class="flex space-x-5">
                     <button

@@ -33,6 +33,7 @@
 
   //barangayID varStore
   const complaintVarStore = {
+    status: "",
     completeName: "",
     complaint: "",
     actionTaken: "",
@@ -114,6 +115,15 @@
     } else {
       complaintVarStore.trigger = true;
     }
+  };
+
+  const updateStatus = async (userID, selectedStatus) => {
+    const docRef = doc(colRef, userID);
+    const updatedData = {
+      status: selectedStatus,
+      lastUpdated: serverTimestamp(),
+    };
+    await setDoc(docRef, updatedData, { merge: true });
   };
 
   const handlerSearch = () => {
@@ -213,7 +223,7 @@
             {/each}
           </div>
         </div>
-      {/if}
+      {/if} 
     </div>
 
     {#if $showComplaintAddModal}
@@ -307,7 +317,13 @@
                 {complaintData.completeName}
               </th>
               <td class="px-6 py-4"> {complaintData.complaint} </td>
-              <td class="px-6 py-4"> {complaintData.actionTaken} </td>
+              <td class="px-6 py-4">
+                  <select class="bg-white" bind:value={complaintData.status} on:change={() => updateStatus(complaintData.id, complaintData.status)}>
+                    <option value="Processing">On Process</option>
+                    <option value="ProcBrgy">Proceed To Barangay</option>
+                    <option value="Completed">Completed</option>
+                  </select>
+              </td>
               <td class="px-6 py-4"> {complaintData.location}</td>
               <td>
                 <div class="flex gap-2">
